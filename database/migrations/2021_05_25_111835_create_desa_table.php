@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePemilihsTable extends Migration
+class CreateDesaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreatePemilihsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pemilihs', function (Blueprint $table) {
+        Schema::create('desa', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_desa');
+            $table->integer('jml_tps');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreatePemilihsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pemilihs');
+        Schema::dropIfExists('desa');
     }
 }
