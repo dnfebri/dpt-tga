@@ -1,4 +1,4 @@
-@extends('layout/template', ['title' => 'Dashboard'])
+@extends('layout/template', ['title' => 'Dashboard', 'nav' => 'Dashboard'])
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->

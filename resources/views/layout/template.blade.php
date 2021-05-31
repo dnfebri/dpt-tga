@@ -17,9 +17,18 @@
    <!-- Theme style -->
    <link rel="stylesheet" href="{{ url('dist/css/adminlte.min.css') }}">
 
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="{{ url('dist/css/bootstrap.min.css') }}">
+   {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> --}}
+
    {{-- Sweetaler --}}
    <script src="{{ url('dist/sweetalert/sweetalert2.min.js') }}"></script>
    <link rel="stylesheet" href="{{ url('dist/sweetalert/sweetalert2.min.css') }}">
+
+   @isset($livewire)
+   @livewireStyles
+   @endisset
 
 </head>
 
@@ -35,11 +44,14 @@
 
       @include('layout.sidebar')
 
-      @yield('content')
+      <div class="mt-5">
+         @yield('content')
+      </div>
 
       <footer class="main-footer">
          <strong>Copyright &copy; 2021 <a href="#">PPK Tanggulangin</a>.</strong>
          All rights reserved.
+         powered by <a href="https://github.com/dnfebri/">dnfebri <i class="fab fa-github"></i></a>
          <!-- <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.1.0
       </div> -->
@@ -51,7 +63,12 @@
       </aside>
       <!-- /.control-sidebar -->
    </div>
-   <!-- ./wrapper -->
+
+   <!--=== JAVASCRIPT ==============================================-->
+
+   @isset($livewire)
+   @livewireScripts
+   @endisset
 
    <!-- jQuery -->
    <script src="{{ url('dist/jquery/jquery.min.js') }}"></script>
@@ -66,6 +83,7 @@
 
    {{-- My Script --}}
    <script src="{{ url('js/massage.js') }}"></script>
+   <script src="{{ url('js/script.js') }}"></script>
 
 </body>
 

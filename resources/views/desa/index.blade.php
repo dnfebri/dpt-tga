@@ -1,4 +1,4 @@
-@extends('layout/template', ['title' => 'Daftar Desa'])
+@extends('layout/template', ['title' => 'Daftar Desa', 'nav' => 'Desa'])
 
 @section('content')
 

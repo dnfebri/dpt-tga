@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\PemilihController;
 use Illuminate\Support\Facades\Route;
@@ -55,3 +56,9 @@ Route::prefix('desa')->name('desa.')->middleware('auth')->group(function () {
 // OR ==>
 // Route::resource('desa', DesaController::class);
 // DESA controller Akhir ================================================================>>
+
+Route::prefix('user')->name('user.')->middleware('auth')->group(function () {
+    Route::get('', [UserController::class, 'index'])->name('index');
+    Route::get('/change', [UserController::class, 'change'])->name('change');
+    Route::post('', [UserController::class, 'store'])->name('store');
+});

@@ -1,4 +1,4 @@
-@extends('layout/template', ['title' => 'Edit Desa'])
+@extends('layout/template', ['title' => 'Edit Desa', 'nav' => 'Desa'])
 
 @section('content')
 
@@ -29,7 +29,7 @@
          <div class="row">
             <div class="col-md-8">
 
-               <form action="{{ route('desa.update', ['desa' => $desa->id  ]) }}" method="post">
+               <form action="{{ route('desa.update', ['desa' => $desa->id]) }}" method="post">
                   @csrf
                   @method('put')
                   <div class="mb-3 row">

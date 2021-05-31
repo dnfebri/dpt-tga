@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top">
    <!-- Left navbar links -->
    <ul class="navbar-nav">
       <li class="nav-item">
@@ -19,8 +19,8 @@
 
          <div class="info" data-toggle="dropdown">
             <a href="#" class="d-inline mr-3 text-decoration-none text-body">{{ Auth::user()->name }}</a>
-            <img src="{{ url('img/user2-160x160.jpg') }}" class="img-circle elevation-2 mr-3" style="width: 30px;"
-               alt="User Image">
+            <img src="{{ url('img/profile', Auth::user()->image) }}" class="img-circle elevation-2 mr-3"
+               style="width: 30px;" alt="User Image">
          </div>
 
          <!-- <a class="nav-link" data-toggle="dropdown" href="#">

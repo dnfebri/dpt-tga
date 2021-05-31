@@ -14,7 +14,9 @@ class PemilihController extends Controller
      */
     public function index()
     {
-        //
+        $pemilih = Pemilih::all();
+        // return view('pemilih.index', compact('pemilih'));
+        return view('pemilih.index');
     }
 
     /**
@@ -34,7 +36,7 @@ class PemilihController extends Controller
 
     public function example()
     {
-        $filename = 'example.xlsx';
+        $filename = 'example.xls';
 
         // Get path from storage directory
         $path = public_path('file/' . $filename);
