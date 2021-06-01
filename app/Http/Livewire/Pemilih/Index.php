@@ -4,9 +4,18 @@ namespace App\Http\Livewire\Pemilih;
 
 use App\Models\Pemilih;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+    public $search = '';
+    protected $paginationTheme = 'bootstrap';
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public $searchName;
     protected $queryString = ['searchName'];
 
@@ -14,9 +23,9 @@ class Index extends Component
     {
         // dump($this->searchName);
         if ($this->searchName === NULL) {
-            $pemilih = Pemilih::all();
+            $pemilih = Pemilih::paginate(8);
         } else {
-            $pemilih = Pemilih::where('nama', 'like', '%' . $this->searchName . '%')->get();
+            $pemilih = Pemilih::where('nama', 'like', '%' . $this->searchName . '%')->paginate(8);
         }
         return view('livewire.pemilih.index', compact('pemilih'));
     }

@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row my-2">
                 <div class="col-md-4">
-                    <h1 class="m-0">{{ count($pemilih) }} Daftar Pemilih</h1>
+                    <h1 class="m-0">{{ $pemilih->total() }} Daftar Pemilih</h1>
                 </div>
                 <div class="col-md-3">
                     <input wire:model="searchName" type="text" class="form-control" placeholder="Cari Nama" autofocus>
@@ -42,9 +42,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pemilih as $row)
+                            @foreach ($pemilih as $key => $row)
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
+                                <th scope="row">{{ $pemilih->firstItem() + $key }}</th>
                                 <td>{{ $row->nama }}</td>
                                 <td>{{ $row->tgl_lahir }}</td>
                                 <td>{{ $row->jenis_kelamin }}</td>
@@ -55,6 +55,18 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-start">
+                        Showing 
+                        {{ $pemilih->firstItem() }}
+                        to
+                        {{ $pemilih->lastItem() }}
+                        of
+                        {{ $pemilih->total() }}
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        {{ $pemilih->links() }}
+                    </div>
+                    
                 </div>
             </div>
 
