@@ -3,3 +3,30 @@
    php artisan breeze:install
    npm install
    npm run dev
+
+# laravel spatie pemission 
+   - composer require spatie/laravel-permission
+   - php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+   - php artisan migrate
+   
+   create rool 
+      - php artisan permission:create-role admin // full documentation => https://spatie.be/docs/laravel-permission/v4/basic-usage/artisan
+         Defining a Super-Admin
+         paste di method boot => App\Providers\AuthServiceProvider;
+         definisi use HasRoles di => App\Models\User
+
+      - php artisan permission:create-role anggota web "read pemilih"
+
+   Using a middleware -> ducumentation Spatie 
+      - Paste di App\Http\Kernel
+      - middleware(['permission:Nama Permission'])  // Tambahakan di route untuk membatasi hak akses uses
+
+   getRoleNames() = Untuk menampilkan Status roll per id/user
+
+# Melakukan tindakan apapun di commendline
+   - php artisan tinker
+      >>> $user = App\Models\User::first();
+      >>> $user->assignRole('admin')
+      >>> $user2 = App\Models\User::find(2);
+      >>> $user2->assignRole('user')
+

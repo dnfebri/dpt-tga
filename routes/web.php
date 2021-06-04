@@ -26,39 +26,45 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/', [App\Http\Controllers\PagesController::class, 'index']);
+Route::middleware('auth')->group(function () {
 
-// Route::get('/pemilih', [App\Http\Controllers\PemilihController::class, 'index'])->name('pemilih');
-// Route::get('/pemilih/create', [App\Http\Controllers\PemilihController::class, 'create'])->name('create.pemilih');
-Route::prefix('pemilih')->name('pemilih.')->middleware('auth')->group(function () {
-    Route::get('', [PemilihController::class, 'index'])->name('index');
-    Route::get('/create', [PemilihController::class, 'create'])->name('create');
-    Route::get('/import', [PemilihController::class, 'import'])->name('import');
-    Route::get('/example', [PemilihController::class, 'example'])->name('example');
-    // Route::get('/{pemilih}', [PemilihController::class, 'show'])->name('show');
-    Route::post('', [PemilihController::class, 'store'])->name('store');
-    Route::get('/{pemilih}/edit', [PemilihController::class, 'edit'])->name('edit');
-    Route::put('/{pemilih}', [PemilihController::class, 'update'])->name('update');
-    Route::delete('/{pemilih}/delete', [PemilihController::class, 'destroy'])->name('delete');
-});
-// Route::resource('pemilih', PemilihController::class);
+    Route::get('/', [App\Http\Controllers\PagesController::class, 'index']);
 
-// DESA controller =====================================================================>>
-Route::prefix('desa')->name('desa.')->middleware('auth')->group(function () {
-    Route::get('', [DesaController::class, 'index'])->name('index');
-    Route::get('/create', [DesaController::class, 'create'])->name('create');
-    // Route::get('/{desa}', [DesaController::class, 'show'])->name('show');
-    Route::post('', [DesaController::class, 'store'])->name('store');
-    Route::get('/{desa}/edit', [DesaController::class, 'edit'])->name('edit');
-    Route::put('/{desa}', [DesaController::class, 'update'])->name('update');
-    Route::delete('/{desa}/delete', [DesaController::class, 'destroy'])->name('delete');
-});
-// OR ==>
-// Route::resource('desa', DesaController::class);
-// DESA controller Akhir ================================================================>>
+    // Route::get('/pemilih', [App\Http\Controllers\PemilihController::class, 'index'])->name('pemilih');
+    // Route::get('/pemilih/create', [App\Http\Controllers\PemilihController::class, 'create'])->name('create.pemilih');
+    Route::prefix('pemilih')->name('pemilih.')->middleware(['permission:read pemilih|cread pemilih'])->group(function () {
+        Route::get('', [PemilihController::class, 'index'])->name('index');
+        Route::get('/create', [PemilihController::class, 'create'])->name('create');
+        Route::get('/import', [PemilihController::class, 'import'])->name('import')->middleware('role:admin');
+        Route::get('/example', [PemilihController::class, 'example'])->name('example');
+        // Route::get('/{pemilih}', [PemilihController::class, 'show'])->name('show');
+        Route::post('', [PemilihController::class, 'store'])->name('store');
+        Route::get('/{pemilih}/edit', [PemilihController::class, 'edit'])->name('edit')->middleware('role:admin');
+        Route::put('/{pemilih}', [PemilihController::class, 'update'])->name('update');
+        Route::delete('/{pemilih}/delete', [PemilihController::class, 'destroy'])->name('delete');
+    });
+    // Route::resource('pemilih', PemilihController::class);
 
-Route::prefix('user')->name('user.')->middleware('auth')->group(function () {
-    Route::get('', [UserController::class, 'index'])->name('index');
-    Route::get('/change', [UserController::class, 'change'])->name('change');
-    Route::post('', [UserController::class, 'store'])->name('store');
+    // DESA controller =====================================================================>>
+    Route::prefix('desa')->name('desa.')->middleware(['role:admin'])->group(function () {
+        Route::get('', [DesaController::class, 'index'])->name('index');
+        Route::get('/create', [DesaController::class, 'create'])->name('create');
+        // Route::get('/{desa}', [DesaController::class, 'show'])->name('show');
+        Route::post('', [DesaController::class, 'store'])->name('store');
+        Route::get('/{desa}/edit', [DesaController::class, 'edit'])->name('edit');
+        Route::put('/{desa}', [DesaController::class, 'update'])->name('update');
+        Route::delete('/{desa}/delete', [DesaController::class, 'destroy'])->name('delete');
+    });
+    // OR ==>
+    // Route::resource('desa', DesaController::class);
+    // DESA controller Akhir ================================================================>>
+
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::get('', [UserController::class, 'index'])->name('index');
+        Route::get('/change', [UserController::class, 'change'])->name('change');
+        Route::get('/showall', [UserController::class, 'showall'])->name('showall');
+        Route::post('', [UserController::class, 'store'])->name('store');
+        Route::get('/{user}/editrole', [UserController::class, 'editrole'])->name('editrole');
+        Route::put('/{user}', [UserController::class, 'updaterole'])->name('updaterole');
+    });
 });
