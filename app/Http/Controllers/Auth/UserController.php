@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+
 
 class UserController extends Controller
 {
@@ -62,6 +65,18 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+    public function showall()
+    {
+        $user = User::all();
+        return view('user.showall', compact('user'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
     public function show(User $user)
     {
         //
@@ -73,9 +88,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function editrole(User $user)
     {
-        //
+        $roles = Role::pluck('name', 'name')->all();
+        $userRole = $user->roles->pluck('name')->all();
+        return view('user.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**
@@ -85,9 +102,19 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function updaterole(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'role' => 'required'
+        ]);
+
+        if (DB::table('model_has_roles')->where('model_id', $user->id)->delete()) {
+            $user->assignRole($request->role);
+        } else {
+            $user->assignRole($request->role);
+        }
+
+        return redirect()->route('user.showall')->with('massage', 'User dengan nama ' . $user->name . ' berhasi Diubah');
     }
 
     /**
