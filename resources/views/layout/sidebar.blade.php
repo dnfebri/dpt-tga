@@ -26,38 +26,39 @@
             </li>
 
             @can('user')
-               <li class="nav-item">
-                  <a href="{{ route('user.showall') }}" class="nav-link" data-nav="{{ $nav ?? '' }}">
-                     <i class="nav-icon fas fa-fw fa-users"></i>
-                     <p>User</p>
-                  </a>
-               </li>
+            <li class="nav-item">
+               <a href="{{ route('user.showall') }}" class="nav-link" data-nav="{{ $nav ?? '' }}">
+                  <i class="nav-icon fas fa-fw fa-users"></i>
+                  <p>User</p>
+               </a>
+            </li>
             @endcan
 
-            <li class="nav-header">DTP</li>
 
             @can('read pemilih')
-               <li class="nav-item">
-                  <a href="{{ route('pemilih.index') }}" class="nav-link" data-nav="{{ $nav ?? '' }}">
-                     <i class="nav-icon fas fa-fw fa-list-alt"></i>
-                     <p>Daftar Pemilih</p>
-                  </a>
-               </li>
-            @endcan
+            <li class="nav-header">DTP</li>
 
-            @can('user')
-               <li class="nav-item">
-                  <a href="{{ route('pemilih.import') }}" class="nav-link" data-nav="{{ $nav ?? '' }}">
-                     <i class="nav-icon fas fa-fw fa-file-import"></i>
-                     <p>Import DPT</p>
-                  </a>
-               </li>
-               <li class="nav-item">
-                  <a href="{{ route('desa.index') }}" class="nav-link" data-nav="{{ $nav ?? '' }}">
-                     <i class="nav-icon fas fa-fw fa-clipboard-list"></i>
-                     <p>Desa</p>
-                  </a>
-               </li>
+            <li class="nav-item">
+               <a href="{{ route('pemilih.index') }}" class="nav-link" data-nav="{{ $nav ?? '' }}">
+                  <i class="nav-icon fas fa-fw fa-list-alt"></i>
+                  <p>Daftar Pemilih</p>
+               </a>
+            </li>
+
+            @can('creat pemilih')
+            <li class="nav-item">
+               <a href="{{ route('pemilih.import') }}" class="nav-link" data-nav="{{ $nav ?? '' }}">
+                  <i class="nav-icon fas fa-fw fa-file-import"></i>
+                  <p>Import DPT</p>
+               </a>
+            </li>
+            <li class="nav-item">
+               <a href="{{ route('desa.index') }}" class="nav-link" data-nav="{{ $nav ?? '' }}">
+                  <i class="nav-icon fas fa-fw fa-clipboard-list"></i>
+                  <p>Desa</p>
+               </a>
+            </li>
+            @endcan
             @endcan
 
             <li class="nav-header">USER</li>

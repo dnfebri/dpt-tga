@@ -3,22 +3,9 @@
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\PemilihController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -26,7 +13,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/', [App\Http\Controllers\PagesController::class, 'index']);
 
@@ -60,10 +47,10 @@ Route::middleware('auth')->group(function () {
     // DESA controller Akhir ================================================================>>
 
     Route::prefix('user')->name('user.')->group(function () {
-        Route::get('', [UserController::class, 'index'])->name('index');
-        Route::get('/change', [UserController::class, 'change'])->name('change');
+        Route::get('', [UserController::class, 'index'])->name('index')->withoutMiddleware('verified'); // User Publick
+        Route::get('/change', [UserController::class, 'change'])->name('change')->withoutMiddleware('verified'); // User Publick
         Route::get('/showall', [UserController::class, 'showall'])->name('showall');
-        Route::post('', [UserController::class, 'store'])->name('store');
+        Route::post('', [UserController::class, 'store'])->name('store')->withoutMiddleware('verified');  // User Publick
         Route::get('/{user}/editrole', [UserController::class, 'editrole'])->name('editrole');
         Route::put('/{user}', [UserController::class, 'updaterole'])->name('updaterole');
     });

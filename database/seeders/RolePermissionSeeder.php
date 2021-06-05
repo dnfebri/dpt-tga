@@ -26,12 +26,16 @@ class RolePermissionSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
-        $role = Role::find(2);
+        $role1 = Role::find(2);
+        $role2 = Role::find(3);
 
-        $permission1->assignRole($role);
-        $role->givePermissionTo($permission1);
+        $permission1->assignRole($role1);
+        $role1->givePermissionTo($permission1);
 
-        $permission2->assignRole($role);
-        $role->givePermissionTo($permission2);
+        $permission2->assignRole($role1);
+        $role1->givePermissionTo($permission2);
+
+        $permission2->assignRole($role2);
+        $role2->givePermissionTo($permission2);
     }
 }
