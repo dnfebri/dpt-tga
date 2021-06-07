@@ -22,15 +22,13 @@ class UserController extends Controller
         return view('user.index');
     }
 
-    public function editakun($id)
+    public function editakun()
     {
-        $user = User::where('id', $id)->first();
-        return view('user.editakun', compact('user'));
+        return view('user.editakun');
     }
 
     public function updateakun(Request $request)
     {
-        // dd($request);
         // $user = User::where('id', $id)->first();
 
         $request->validate([
@@ -41,12 +39,24 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
+        if (!$request->file('image')) {
+            $namaimg = auth()->user()->image;
+        } else {
+            $namaimg = auth()->user()->id . '_' . $request->username . '.' . $request->file('image')->getClientOriginalExtension();
+
+            //// Simpan image ke storage public ////
+            $request->file('image')->move(public_path() . '/img/profile', $namaimg);
+        }
+
+        // dd($namaimg);
+
         $currentpassword = auth()->user()->password;
 
         if (Hash::check($request->password, $currentpassword)) {
             auth()->user()->update([
                 'name' => $request->nama,
                 'username' => $request->username,
+                'image' => $namaimg,
                 'email' => $request->email,
             ]);
             return redirect()->route('user.index')->with('massage', 'Data anda berhasil diubah');
@@ -100,7 +110,7 @@ class UserController extends Controller
      */
     public function showall()
     {
-        $user = User::all();
+        $user = User::where('id', '!=', 1)->orderByDesc('created_at')->get();
         return view('user.showall', compact('user'));
     }
 

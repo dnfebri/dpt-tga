@@ -58,7 +58,7 @@
                            @endif
                         @endforeach
                     </td>
-                    <td>{{ $row->created_at }}</td>
+                    <td>{{ $row->created_at->diffForHumans() }}</td>
                 </tr>
                 @endforeach
             </tbody>
