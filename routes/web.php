@@ -51,7 +51,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/change', [UserController::class, 'change'])->name('change')->withoutMiddleware('verified'); // User Publick
         Route::get('/showall', [UserController::class, 'showall'])->name('showall');
         Route::post('', [UserController::class, 'store'])->name('store')->withoutMiddleware('verified');  // User Publick
-        Route::post('/editakun{user}', [UserController::class, 'editakun'])->name('editakun')->withoutMiddleware('verified');  // User Publick
+        Route::get('/editakun{user}', [UserController::class, 'editakun'])->name('editakun')->withoutMiddleware('verified');  // User Publick
+        Route::post('/updateakun', [UserController::class, 'updateakun'])->name('updateakun')->withoutMiddleware('verified');  // User Publick
         Route::get('/{user}/editrole', [UserController::class, 'editrole'])->name('editrole');
         Route::put('/{user}', [UserController::class, 'updaterole'])->name('updaterole');
     });

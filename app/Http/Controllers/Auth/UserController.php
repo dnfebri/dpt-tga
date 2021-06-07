@@ -28,6 +28,33 @@ class UserController extends Controller
         return view('user.editakun', compact('user'));
     }
 
+    public function updateakun(Request $request)
+    {
+        // dd($request);
+        // $user = User::where('id', $id)->first();
+
+        $request->validate([
+            'nama' => 'required',
+            'username' => 'required',
+            'email' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'password' => 'required',
+        ]);
+
+        $currentpassword = auth()->user()->password;
+
+        if (Hash::check($request->password, $currentpassword)) {
+            auth()->user()->update([
+                'name' => $request->nama,
+                'username' => $request->username,
+                'email' => $request->email,
+            ]);
+            return redirect()->route('user.index')->with('massage', 'Data anda berhasil diubah');
+        } else {
+            return back()->withErrors(['password' => 'Password anda salah']);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
