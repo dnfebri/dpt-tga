@@ -22,6 +22,12 @@ class UserController extends Controller
         return view('user.index');
     }
 
+    public function editakun($id)
+    {
+        $user = User::where('id', $id)->first();
+        return view('user.editakun', compact('user'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

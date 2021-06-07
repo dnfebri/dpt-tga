@@ -7,9 +7,16 @@
    <div class="content-header">
       <div class="container-fluid">
          <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-2">
                <h1 class="m-0">Akun Saya</h1>
-            </div><!-- /.col -->
+            </div>
+            <div class="col-auto">
+               <form action="{{ route('user.editakun', ['user'=>Auth::user()->id]) }}" method="post">
+               @csrf
+                  <button type="submit" class="btn btn-warning">Edit Akun</button>
+               </form>
+            </div>
+            <!-- /.col -->
 
          </div><!-- /.row -->
       </div><!-- /.container-fluid -->
