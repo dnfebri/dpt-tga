@@ -11,7 +11,7 @@
                <h1 class="m-0">Akun Saya</h1>
             </div>
             <div class="col-auto">
-               <form action="{{ route('user.editakun', ['user'=>Auth::user()->id]) }}" method="get">
+               <form action="{{ route('user.editakun') }}" method="get">
                   <button type="submit" class="btn btn-warning">Edit Akun</button>
                </form>
             </div>
